@@ -1,9 +1,10 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  web:
-    image: python:3.9
-    command: bash -c "pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./django:/app
     ports:
