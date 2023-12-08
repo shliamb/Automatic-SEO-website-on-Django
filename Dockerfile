@@ -1,14 +1,14 @@
+# Используем базовый образ Python версии 3.12-slim
 FROM python:3.12-slim
 
-#WORKDIR /app
-
+# Копируем все файлы из текущего контекста сборки в текущую директорию в образе
 COPY . .
 
-RUN pip install --upgrade pip -- only first time
+# Обновляем pip и устанавливаем зависимости из requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-#RUN pip install -r requirements.txt
-RUN pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000
+# Устанавливаем рабочую директорию
+WORKDIR /app
 
-#command: bash -c "pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"
-
-#CMD ["python", "app.py"]
+# Используем CMD для указания команды, которая будет выполнена при старте контейнера
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

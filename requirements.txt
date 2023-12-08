@@ -1,4 +1,4 @@
-Python==3.12-slim
+#Python==slim
 #Flask==2.1.1
 #Werkzeug==2.0.1
 #pymongo==4.5
