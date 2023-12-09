@@ -3,11 +3,11 @@ FROM python:3.12-slim
 # Устанавливаем переменную окружения для отключения вывода журнала Python
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /app
+WORKDIR /apps
 
-COPY ./requirements.txt /app/
+COPY ./requirements.txt /apps/
 
-COPY . /app/
+COPY . /apps/
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
