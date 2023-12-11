@@ -2,12 +2,14 @@
 
 {% block content %}
     {% for post in posts %}
-        <div class="post">
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p>
-        </div>
+        <div class="blog-post">
+            <h2 class="blog-post-title"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p class="blog-post-meta">{{ post.published_date }} <!--<a href="#">Chris</a>/--></p>
+            <div>{{ post.text|linebreaksbr }}</div>
+        </div><!-- /.blog-post -->
     {% endfor %}
+    <!--<ul class="pager">
+        <li><a href="#">Previous</a></li>
+        <li><a href="#">Next</a></li>
+    </ul>/-->
 {% endblock %}
