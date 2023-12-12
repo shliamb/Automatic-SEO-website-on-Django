@@ -24,8 +24,8 @@
     <title>Blog | 1rmaster.ru</title>
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>/-->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>/-->
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -41,9 +41,9 @@
       <div class="container">
         <nav class="blog-nav">
           <a class="blog-nav-item active" href="/">Home</a>
-          <a class="blog-nav-item" href="#">New features</a>
+          <!--<a class="blog-nav-item" href="#">New features</a>
           <a class="blog-nav-item" href="#">Press</a>
-          <a class="blog-nav-item" href="#">About</a>
+          <a class="blog-nav-item" href="#">About</a>/-->
           {% if user.is_authenticated %}<a class="blog-nav-item" href="{% url 'post_new' %}">New post</a>{% endif %}
         </nav>
       </div>
