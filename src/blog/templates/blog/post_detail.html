@@ -3,8 +3,40 @@
 {% block content %}
     <div class="blog-post">
         <h2 class="blog-post-title">{{ post.title }}</h2>
-        {% if post.published_date %}<p class="blog-post-meta">{{ post.published_date }}<!--<a href="#">Mark</a>/--></p>{% endif %}
+        {% if post.published_date %}
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+        {% else %}
+            <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
+        {% endif %}
         {% if user.is_authenticated %}<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>{% endif %}
+        {% if user.is_authenticated %}<a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>{% endif %}
         <div>{{ post.text|linebreaksbr }}</div>
     </div>
+
+    <hr>
+    <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+    {% for comment in post.comments.all %}
+    {% if user.is_authenticated or comment.approved_comment %}
+    <div class="comment">
+        <div class="date">
+            {{ comment.created_date }}
+            {% if not comment.approved_comment %}
+                <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
+                   {% include './icons/hand-thumbs-down.svg' %}
+                </a>
+                <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">
+                   {% include './icons/hand-thumbs-up.svg' %}
+                </a>
+            {% endif %}
+        </div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+    {% endif %}
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+
 {% endblock %}

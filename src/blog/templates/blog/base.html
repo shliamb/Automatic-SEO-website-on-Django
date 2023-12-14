@@ -40,11 +40,14 @@
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a class="blog-nav-item active" href="/">Home</a>
+          <a class="blog-nav-item active" href="/blog/">Home</a>
           <!--<a class="blog-nav-item" href="#">New features</a>
           <a class="blog-nav-item" href="#">Press</a>
           <a class="blog-nav-item" href="#">About</a>/-->
-          {% if user.is_authenticated %}<a class="blog-nav-item" href="{% url 'post_new' %}">New post</a>{% endif %}
+          {% if user.is_authenticated %}<a class="blog-nav-item" href="{% url 'post_new' %}">New post</a>
+          <a class="blog-nav-item" href="{% url 'post_draft_list' %}">Draft list</a>
+          <span class="blog-nav-item" >Hello {{ user.username }} <small>(<a style="color:#ccc" href="{% url 'logout' %}">Log out</a>)</small></span>
+          {% else %}<a class="blog-nav-item" href="{% url 'login' %}">Login</a>{% endif %}
         </nav>
       </div>
     </div>

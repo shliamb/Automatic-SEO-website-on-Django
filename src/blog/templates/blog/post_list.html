@@ -6,6 +6,7 @@
             <h2 class="blog-post-title"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <p class="blog-post-meta">{{ post.published_date }} <!--<a href="#">Chris</a>/--></p>
             <div>{{ post.text|linebreaksbr|truncatewords:20 }}</div>
+            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
         </div>
     {% endfor %}
     <!--<ul class="pager">
