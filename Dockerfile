@@ -8,7 +8,7 @@ WORKDIR /apps
 
 COPY ./requirements.txt /apps/
 
-COPY . /apps/
+COPY ./src /apps/
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
