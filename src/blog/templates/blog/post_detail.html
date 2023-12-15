@@ -1,42 +1,39 @@
 {% extends 'blog/base.html' %}
+{% load static %}
 
 {% block content %}
     <div class="blog-post">
         <h2 class="blog-post-title">{{ post.title }}</h2>
-        {% if post.published_date %}
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-        {% else %}
-            <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
-        {% endif %}
-        {% if user.is_authenticated %}<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>{% endif %}
-        {% if user.is_authenticated %}<a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>{% endif %}
+        <div style="margin: 5px 0 30px 0;">
+            {% if post.published_date %}<span class="label label-info">{{ post.published_date }}</span>
+            {% else %}<a class="btn btn-xs btn-success" href="{% url 'post_publish' pk=post.pk %}">publish</a>{% endif %}
+            {% if user.is_authenticated %}<a class="btn btn-xs btn-primary" href="{% url 'post_edit' pk=post.pk %}">edit</a>{% endif %}
+            {% if user.is_authenticated %}<a class="btn btn-xs btn-danger" href="{% url 'post_remove' pk=post.pk %}">dell</a>{% endif %}
+        </div>
         <div>{{ post.text|linebreaksbr }}</div>
     </div>
 
     <hr>
-    <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+    <a style="width: 100%; margin: 10px 0 20px 0;" class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
     {% for comment in post.comments.all %}
     {% if user.is_authenticated or comment.approved_comment %}
-    <div class="comment">
-        <div class="date">
-            {{ comment.created_date }}
+    <div class="comment" style="background: #f7f7f7; border-radius: 7px;">
+        <!--<img src="{% static '/images/anonym.png' %}" style="width:48px; float:left;">/-->
+        <div style="padding: 5px 0 0 5px;">
+            {% include './icons/person-bounding-box.svg' %}
+            {{ comment.author }}
+            <span style="font-size: 15px;color: #8b8b8b;">{{ comment.created_date }}</span>
             {% if not comment.approved_comment %}
-                <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
-                   {% include './icons/hand-thumbs-down.svg' %}
-                </a>
-                <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}">
-                   {% include './icons/hand-thumbs-up.svg' %}
-                </a>
+                <a class="btn btn-xs btn-danger" href="{% url 'comment_remove' pk=comment.pk %}">remove</a>
+                <a class="btn btn-xs btn-success" href="{% url 'comment_approve' pk=comment.pk %}">approve</a><!--{% include './icons/hand-thumbs-up.svg' %}/-->
             {% endif %}
         </div>
-        <strong>{{ comment.author }}</strong>
-        <p>{{ comment.text|linebreaks }}</p>
+        <div style="clear:left;"></div>
+        <div style="margin:10px;">{{ comment.text|linebreaks }}</div>
     </div>
     {% endif %}
 {% empty %}
-    <p>No comments here yet :(</p>
+    <p style="color:#9b9b9b">... no is comments</p>
 {% endfor %}
 
 {% endblock %}

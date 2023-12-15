@@ -3,7 +3,8 @@
  */
 
  body {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: sans-serif;
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
     color: #555;
   }
   

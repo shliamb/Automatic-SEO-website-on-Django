@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-=#55b+k6@cotf1qz&(zv&xa^$=5l(rr+v(acja3^s2laa_k5pa
 DEBUG = True
 
 ALLOWED_HOST = ['localhost', '127.0.0.1', '[::1]']
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1'] - при деплое и отключении дебуга
 
 LOGIN_REDIRECT_URL = '/blog/'
 
@@ -86,10 +87,10 @@ DATABASES = {
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'postgres',
-#        'USER': 'postgres',
-#        'PASSWORD': '',
-#        'HOST': 'localhost',
+#        'NAME': 'my_database',
+#        'USER': 'admin',
+#        'PASSWORD': '12345',
+#        'HOST': 'my_postgres',
 #        'PORT': '5432',
 #    }
 #}

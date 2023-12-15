@@ -9,33 +9,33 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./src:/app
-    #environment:
-      #POSTGRES_USER: admin
-      #POSTGRES_PASSWORD: 12345
-      #POSTGRES_DB: my_database
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: my_database
     ports:
       - "8000:8000"
-    #depends_on:
-    #  - postgres
+    depends_on:
+      - postgres
     networks:
       - network
 
-  #postgres:
-  #  image: postgres:latest
-  #  container_name: my_postgres
-  #  environment:
-  #    POSTGRES_USER: admin
-  #    POSTGRES_PASSWORD: 12345
-  #    POSTGRES_DB: my_database
-  #  ports:
-  #    - "5432:5432"
-  #  volumes:
-  #    - postgres_data:/var/lib/postgresql/data
-  #  networks:
-  #    - network
+  postgres:
+    image: postgres:latest
+    container_name: my_postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: my_database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - network
 
-#volumes:
-#  postgres_data:
+volumes:
+  postgres_data:
 
 networks:
   network:

@@ -1,16 +1,14 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+    <style>a.tit:hover { text-decoration: none;}</style>
     {% for post in posts %}
         <div class="blog-post">
-            <h2 class="blog-post-title"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            <p class="blog-post-meta">{{ post.published_date }} <!--<a href="#">Chris</a>/--></p>
-            <div>{{ post.text|linebreaksbr|truncatewords:20 }}</div>
-            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
+            <a class="tit" href="{% url 'post_detail' pk=post.pk %}"><h2 class="blog-post-title">{{ post.title }}</h2></a>
+            <span class="label label-info">{{ post.published_date }}</span><a style="margin: 0 0 0 20px;" href="{% url 'post_detail' pk=post.pk %}">comments <span class="badge">{{ post.approved_comments.count }}</span></a>
+
+            <div style="margin: 15px 0;">{{ post.text|linebreaksbr|truncatewords:20 }} <a class="btn btn-xs btn-default" href="{% url 'post_detail' pk=post.pk %}"> more </a></div>
+                <!--<ul class="nav nav-pills"><li><a href="{% url 'post_detail' pk=post.pk %}">Comments <span class="badge">{{ post.approved_comments.count }}</span></a></li></ul>/-->
         </div>
     {% endfor %}
-    <!--<ul class="pager">
-        <li><a href="#">Previous</a></li>
-        <li><a href="#">Next</a></li>
-    </ul>/-->
 {% endblock %}
