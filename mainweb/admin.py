@@ -22,6 +22,7 @@ admin.site.register(Page, PageAdmin)
 admin.site.register(Modul, ModulAdmin)
 admin.site.register(MenuItem, MenuItemAdmin)
 
+# Простой вывод без классов
 #admin.site.register(Page)
 # admin.site.register(Modul)
 # admin.site.register(MenuItem)
