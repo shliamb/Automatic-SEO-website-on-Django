@@ -7,8 +7,9 @@
     <title>{{ page.seotitle }}</title>
     {% comment %} <link href="{% static "css/blog.css" %}" rel="stylesheet"> {% endcomment %}
 </head>
-
 <body>
+
+
     <div style="width:80%; margin:10px 10%;">
         <h1>{{ page.title }}</h1>
         <div>{{ page.body|linebreaks }}</div>
@@ -16,7 +17,9 @@
             <p>{{ page.author }}</p>
             <p>{{ page.publish }}</p>
         </div>
+        {% include '../page_list.html' with pages=root_pages %}
     </div>
+
 
 
 </body>

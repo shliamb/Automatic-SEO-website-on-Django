@@ -14,19 +14,7 @@ class Page(models.Model):
     publish = models.DateTimeField(default=timezone.now, verbose_name='Публикация:')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создана:')
     updated = models.DateTimeField(auto_now=True, verbose_name='Обновлена:')
-
-    def __str__(self):
-        return self.title
-
-# Модель меню
-class MenuItem(models.Model):
-    title = models.CharField(max_length=100, verbose_name='Заголовок пункта меню')
-    is_main_menu = models.BooleanField(default=True, verbose_name='Главное меню')  # Является ли элемент главным меню
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children', verbose_name='Родительский элемент')  # Ссылка на родительский элемент
-    page = models.OneToOneField(Page, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Связь с Page') # Указывает на связь с моделью Page может быть null и может быть пустым, один пунктт меню к одномой странице
-    url = models.CharField(max_length=200, null=True, blank=True, verbose_name='Внешняя ссылка') # Можно внешнию ссылку в меню
-    active = models.BooleanField(default=False, verbose_name='Скрыть пункт меню') # Активное меню для визуализации
-    order = models.PositiveIntegerField(default=0, verbose_name='Порядок отображения') # порядок отображения от 0 - 5 к примеру
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='children',  verbose_name='Родитель:') # Родительские отношения
 
     def __str__(self):
         return self.title
