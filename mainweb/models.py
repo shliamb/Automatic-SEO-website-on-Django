@@ -15,6 +15,7 @@ class Page(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создана:')
     updated = models.DateTimeField(auto_now=True, verbose_name='Обновлена:')
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='children',  verbose_name='Родитель:') # Родительские отношения
+    views = models.PositiveIntegerField(default=0, verbose_name='Просмотры:') # просмотры страницы
 
     def __str__(self):
         return self.title
@@ -45,3 +46,7 @@ class Modul(models.Model): # дополнительные блоки на стр
 
 #     def __str__(self):
 #         return self.title
+    
+# 1. Кастом модуль
+# 2. Картинки 
+# 3. Тэги

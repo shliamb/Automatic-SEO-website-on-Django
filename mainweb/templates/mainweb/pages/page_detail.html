@@ -1,26 +1,16 @@
-{% comment %} {% load staticfiles %} {% endcomment %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="keywords" content="{{ page.keywords }}" />
-	<meta name="description" content="{{ page.description }}">
-    <title>{{ page.seotitle }}</title>
-    {% comment %} <link href="{% static "css/blog.css" %}" rel="stylesheet"> {% endcomment %}
-</head>
-<body>
-
-
+{% extends "mainweb/base.html" %}
+{% comment %} {% block title %}{% endblock %} {% endcomment %}
+{% block content %}
     <div style="width:80%; margin:10px 10%;">
         <h1>{{ page.title }}</h1>
-        <div>{{ page.body|linebreaks }}</div>
+        <div>
+            {{ page.body|linebreaks }}
+        </div>
         <div style="color:#9ba3ac;margin: 20px;">
-            <p>{{ page.author }}</p>
-            <p>{{ page.publish }}</p>
+            <p>Автор: {{ page.author }}</p>
+            <p>Дата создания: {{ page.publish }}</p>
+            <p>Количество просмотров: {{ page.views }}</p>
         </div>
         {% include '../page_list.html' with pages=root_pages %}
     </div>
-
-
-
-</body>
-</html>
+{% endblock %}
