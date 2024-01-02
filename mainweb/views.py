@@ -6,6 +6,8 @@ from .models import Page
 def home(request):
     page = get_object_or_404(Page, slug='home') # Получаем все объекты модели Page где slug = home
     root_pages = Page.objects.filter(parent=None)  # Получаем все корневые страницы
+    if page.publish is False: # Проверка, опубликована ли главная страница, хотя это странно
+        raise Http404("Страница не найдена")
     page.views += 1 # Увеличение просмотра страницы
     page.save()
     context = {
@@ -20,8 +22,8 @@ def page_detail(request, slug):
         return redirect('home') # Возвращаем /home в /
     page = get_object_or_404(Page, slug=slug) # Получаем страницу согласно совпадению slug
     root_pages = Page.objects.filter(parent=None)  # Получаем все корневые страницы
-    if page.parent is not None: # если значение parent не пустое, значит страница дочерняя
-        raise Http404("Страница не найдена") # 404 при открытии дочернюю страницу в родительской 
+    if page.parent is not None or page.publish is False: # если значение parent не пустое, значит страница дочерняя
+        raise Http404("Страница не найдена") # 404 при открытии дочернюю страницу в родительской и если открыть не опубликованную страницу
     page.views += 1 # Увеличение просмотра страницы
     page.save()
     context = {
@@ -35,6 +37,8 @@ def sub_page_detail(request, parent_slug, slug):
     parent_page = get_object_or_404(Page, slug=parent_slug)
     page = get_object_or_404(Page, slug=slug, parent=parent_page)
     root_pages = Page.objects.filter(parent=None)  # Получаем все корневые страницы
+    if parent_page.publish is False or page.publish is False: # Проверка, опубликован ли родитель ветки и отдельно 
+        raise Http404("Страница не найдена")
     page.views += 1 # Увеличение просмотра страницы
     page.save()
     context = {

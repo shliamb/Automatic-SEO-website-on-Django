@@ -18,11 +18,13 @@ class Page(models.Model):
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='children',  verbose_name='Родитель:') # Родительские отношения
     views = models.PositiveIntegerField(default=0, verbose_name='Просмотры:') # просмотры страницы
 
-    def get_absolute_url(self): # Для формирования ссылок в sitemap.xml
+
+    def get_absolute_url(self): # функция формирующая верно url для sitemap
         if self.parent:
             return reverse('sub_page_detail', args=[self.parent.slug, self.slug])
         else:
             return reverse('page_detail', args=[self.slug])
+
 
     def __str__(self):
         return self.title
