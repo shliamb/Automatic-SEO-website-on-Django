@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User # Модель встроена
+from django.urls import reverse
 
 # Модель Страницы
 class Page(models.Model):
@@ -11,11 +12,17 @@ class Page(models.Model):
     seotitle = models.CharField(max_length=250, verbose_name='Title:') # заголовок title страницы в html
     keywords = models.CharField(max_length=250, verbose_name='Keywords:') 
     description = models.TextField(max_length=550,verbose_name='Description:')
-    publish = models.DateTimeField(default=timezone.now, verbose_name='Публикация:')
+    publish = models.BooleanField(default=True, verbose_name='Опубликована:') # опубликована или нет, не работает еще, пока для sitemap
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создана:')
     updated = models.DateTimeField(auto_now=True, verbose_name='Обновлена:')
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='children',  verbose_name='Родитель:') # Родительские отношения
     views = models.PositiveIntegerField(default=0, verbose_name='Просмотры:') # просмотры страницы
+
+    def get_absolute_url(self): # Для формирования ссылок в sitemap.xml
+        if self.parent:
+            return reverse('sub_page_detail', args=[self.parent.slug, self.slug])
+        else:
+            return reverse('page_detail', args=[self.slug])
 
     def __str__(self):
         return self.title

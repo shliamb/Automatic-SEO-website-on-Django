@@ -2,15 +2,11 @@ from django.contrib.sitemaps import Sitemap
 from .models import Page
 
 class PageSitemap(Sitemap):
-    changefreq = 'weekly'
-    priority = 0.9
+    changefreq = 'weekly'  # Частота изменений
+    priority = 0.9         # Приоритетность страниц
 
     def items(self):
-        # Предполагается, что у вас есть булево поле `published` в модели `Page`
-        return Page.objects.filter(publish=True)
+        return Page.objects.filter(publish=True) # Возвращает QuerySet объектов, которые будут отображаться в карте сайта
 
-    # Убедитесь, что метод lastmod возвращает дату/время
     def lastmod(self, obj):
-        # здесь должно быть поле, содержащее дату последнего изменения obj, например:
-        return obj.updated
-    
+        return obj.updated  # Возвращает дату последнего изменения объекта

@@ -8,7 +8,7 @@
         </div>
         <div style="color:#9ba3ac;margin: 20px;">
             <p>Автор: {{ page.author }}</p>
-            <p>Дата создания: {{ page.publish }}</p>
+            <p>Дата изменений: {{ page.updated }}</p>
             <p>Количество просмотров: {{ page.views }}</p>
         </div>
         {% include 'mainweb/page_list.html' with pages=root_pages %}
