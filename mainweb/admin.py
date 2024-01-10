@@ -5,15 +5,15 @@ from .models import Page, Modul
 
 
 class PageAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'author', 'publish', 'keywords', 'seotitle', 'parent')
+    list_display = ('title', 'slug', 'publish', 'parent')
     list_filter = ('keywords', 'created', 'publish', 'author')
     search_fields = ('title', 'body')
-    prepopulated_fields = {'slug': ('title',)}
+    #prepopulated_fields = {'slug': ('title')}
     raw_id_fields = ('author',)
     #date_hierarchy = 'publish'
 
 class ModulAdmin(admin.ModelAdmin):
-    list_display = ('title', 'publish', 'active')
+    list_display = ('title', 'publish', 'updated')
 
 admin.site.register(Page, PageAdmin)
 admin.site.register(Modul, ModulAdmin)

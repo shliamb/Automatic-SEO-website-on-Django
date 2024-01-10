@@ -1,25 +1,27 @@
-<ul>{% for page in root_pages %}<li>{% if page.parent %}<a href="{% url 'sub_page_detail' parent_slug=page.parent.slug slug=page.slug %}">{{ page.title }}</a>{% else %}<a href="{% url 'page_detail' slug=page.slug %}">{{ page.title }}</a>{% endif %}{% if page.children.all %}<ul>{% for child in page.children.all %}<li><a href="{% url 'sub_page_detail' parent_slug=page.slug slug=child.slug %}">{{ child.title }}</a></li>{% endfor %}</ul>{% endif %}</li>{% endfor %}</ul>
-{% comment %} <ul>
+<ul>
     {% for page in root_pages %}
-        <li>
-            {% if page.parent %}
-                <a href="{% url 'sub_page_detail' parent_slug=page.parent.slug slug=page.slug %}">{{ page.title }}</a>
-            {% else %}
-                <a href="{% url 'page_detail' slug=page.slug %}">{{ page.title }}</a>
-            {% endif %}
+        {% if page.publish %}
+            <li>
+                {% if page.parent %}
+                    <a href="{% url 'sub_page_detail' parent_slug=page.parent.slug slug=page.slug %}">{{ page.title }}</a>
+                {% else %}
+                    <a href="{% url 'page_detail' slug=page.slug %}">{{ page.title }}</a>
+                {% endif %}
 
-            <!-- Рекурсивное отображение дочерних страниц, если они есть /-->
-            {% if page.children.all %}
-                <ul>
-                    {% for child in page.children.all %}
-                        <li>
-                            <a href="{% url 'sub_page_detail' parent_slug=page.slug slug=child.slug %}">
-                                {{ child.title }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </li>
+                {% if page.children.all %}
+                    <ul>
+                        {% for child in page.children.all %}
+                            {% if child.publish %}
+                                <li>
+                                    <a href="{% url 'sub_page_detail' parent_slug=page.slug slug=child.slug %}">
+                                        {{ child.title }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endif %}
     {% endfor %}
-</ul> {% endcomment %}
+</ul>

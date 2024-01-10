@@ -10,5 +10,5 @@ sitemaps = {
 urlpatterns = [
     path('administrator/', admin.site.urls),
     path('', include('mainweb.urls')), # перенаправление url верхнего порядка на url нижнего порядка в mainweb/url.py
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'), # карта сайта
 ]
